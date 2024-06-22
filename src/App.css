@@ -38,7 +38,7 @@
 }
 
 /*custom css */
-.content.register{
+.content.register, .content.my-account{
   background-color:  lightblue;
  
   min-height: 700px;
@@ -69,6 +69,7 @@
 .view-bio {
   text-align: center;
   background-color: lightblue;
+  min-height: 700px;
 }
 
 
@@ -77,7 +78,7 @@
   padding: 1px;
   background-color: lightblue !important;
 }
-.view-bio .section-3 button{
+.view-bio .section-3 a{
   width: 250px !important;
 }
 .linkedin{
@@ -92,4 +93,11 @@
 .instagram{
   background-color:#fe0361 !important;
   color:white
+}
+
+.react-quill-custom{
+  height:100px;
+}
+.react-quill-custom .ql-container {
+  height: 100%;
 }
