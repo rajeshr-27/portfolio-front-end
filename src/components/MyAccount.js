@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/esm/Modal';
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/esm/Form';
 import Col from 'react-bootstrap/esm/Col';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Image from "react-bootstrap/esm/Image";
@@ -16,6 +16,7 @@ import 'react-quill/dist/quill.snow.css';
 import { toast } from 'react-toastify';
 
 function MyAccount() {
+    const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL
     //Fetch Authenticate user
     const {user,token} = useSelector((state) => state.users);
@@ -63,9 +64,7 @@ function MyAccount() {
 
     //profile model action
     const handleProfileClose = () => setShowProfile(false);
-    const handleProfileShow = () => setShowProfile(true);
-
-    
+    const handleProfileShow = () => setShowProfile(true);    
     
     useEffect(()=> {
         //Fetch countries
@@ -85,36 +84,26 @@ function MyAccount() {
                 setFrmData(userDetails);
                 setSelectedCountry(userDetails.country);
                 setSelectedState(userDetails.state);
-            }
-
+            } 
         }catch(error){
             console.log(error);
         }
-        
-        
     }
 
     const fetchBioData = async () => {
-
         try{
             const response = await axios.get(`${API_URL}/user/bio-data/${user._id}`); 
             if(response.data.biodata !== null){
                 setUserBioDetails(response.data.biodata[0]);
                 setFrmBioData(response.data.biodata[0]);
             }
-
         }catch(error){
             console.log(error);
-        }
-       
-        
+        }  
     }
 
     useEffect(()=>{
-        console.log(user);
-
-        if(user._id){          
-           
+        if(user._id){  
              //get User full details
              fetchUserDetails();
              //get bio data
@@ -123,8 +112,7 @@ function MyAccount() {
                 ...frmData,
                 userId:user._id
              })
-        }
-      
+        }      
     },[user])
 
     //Fetch states
@@ -147,10 +135,7 @@ function MyAccount() {
             }
             fetchCities();
         }
-    },[selectedState])
-
-  
-    
+    },[selectedState])    
 
     //Country on change
     const handleCountryChange = (e) => {
@@ -198,14 +183,12 @@ function MyAccount() {
         })
     }
 
-    const handleSummaryChange = (value) => {
-        
+    const handleSummaryChange = (value) => {        
         setFrmBioData({
             ...frmBioData,
            summary:value
         })
     }
-
 
     //Submit form handling
     const handleSubmit = async (e) => {
@@ -222,7 +205,13 @@ function MyAccount() {
             setShowProfile(false);
             fetchUserDetails();
         }catch(error){
-            toast.error(error.response.data.message)
+            if(error.response){
+                toast.error(error.response.data.message)
+                if(error.response.status === 401){
+                    navigate('/login',{replace:true})
+                }
+            }
+           
         }
     }
 
@@ -245,17 +234,16 @@ function MyAccount() {
                     setShow(false);
                     fetchBioData();
                 }catch(error){
-                    toast.error(error.response.data.message)
+                    if(error.response){
+                        toast.error(error.response.data.message)
+                        if(error.response.status === 401){
+                            navigate('/login',{replace:true})
+                        }
+                    }
                 }
                 
             }else {
-                console.log('ADD')
                 try{
-
-                    // for(const data of postData){
-                    //     console.log(data);
-                    // }
-
                     const response = await axios.post(`${API_URL}/user/add-bio-data`, postData,{
                         headers:{
                             Authorization : `Bearer ${token}`
@@ -550,12 +538,9 @@ function MyAccount() {
             </Row>
         </Container>
     </div>
-    );
-
-    
+    );    
   }
-
-    // Specify the modules to include in the toolbar
+// Specify the modules to include in the toolbar
 MyAccount.modules = {
     toolbar: [
       [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
@@ -574,7 +559,6 @@ MyAccount.modules = {
     'bold', 'italic', 'underline', 'strike', 'blockquote',
     'list', 'bullet', 'indent',
     'link', 'image', 'video'
-  ];
-  
+  ];  
 
   export default MyAccount;
