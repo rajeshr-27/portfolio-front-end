@@ -296,3 +296,7 @@ body {
   --tw-text-opacity: 1;
   color: rgb(126 34 206 / var(--tw-text-opacity));
 }
+
+blockquote {
+  margin: 0 0 0rem !important;
+}
