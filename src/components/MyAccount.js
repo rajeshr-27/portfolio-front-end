@@ -59,6 +59,7 @@ function MyAccount() {
 
     const [show, setShow] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     //Bio model action
     const handleClose = () => setShow(false);
@@ -84,8 +85,8 @@ function MyAccount() {
                 if(details.status === 1){
                     setUserDetails(details.user[0]);
                     setFrmData(details.user[0]);
-                    setSelectedCountry(details.user[0]);
-                    setSelectedState(details.user[0]);
+                    setSelectedCountry(details.user[0].country);
+                    setSelectedState(details.user[0].state);
                 }
                 
 
@@ -184,7 +185,8 @@ function MyAccount() {
 
     //Submit form handling
     const handleSubmit = async (e) => {
-        e.preventDefault();       
+        e.preventDefault();  
+        setIsLoading(true);     
         try{
             const postData = new FormData();
             postData.append('data', JSON.stringify(frmData));
@@ -213,15 +215,17 @@ function MyAccount() {
                 if(error.response.status === 401){
                     navigate('/login',{replace:true})
                 }
-            }
-           
+            }           
+        }finally{
+            setIsLoading(false);
         }
     }
 
      //Submit Bio form handling
      const handleBioSubmit = async (e) => {
         
-        e.preventDefault();     
+        e.preventDefault(); 
+        setIsLoading(true);    
         frmBioData.userId = user._id
         const postData = new FormData();
         postData.append('photo', frmBioData.photo);
@@ -252,6 +256,8 @@ function MyAccount() {
                         navigate('/login',{replace:true})
                     }
                 }
+            }finally {
+                setIsLoading(false);
             }
             
         }else {
@@ -271,7 +277,9 @@ function MyAccount() {
                     fetchBioDataDetails();
             }catch(error){
                 toast.error(error.response.data.message)
-            }                
+            } finally {
+                setIsLoading(false);
+            }               
         }            
     }
     return (
@@ -448,9 +456,9 @@ function MyAccount() {
                             </Form.Group>  
                         
                             <Form.Group className="mb-3">
-                                <div className="float-end mt-5">
+                                <div className="float-end mt-5" disabled={isLoading}>
                                     <Button type="submit" variant="primary">
-                                        Update
+                                       {(isLoading) ? 'Loading...' : 'Update'} 
                                     </Button>                                    
                                 </div>
                             </Form.Group>  
@@ -539,16 +547,19 @@ function MyAccount() {
                                             <option value="Self Employed">Self Employed</option> 
                                             <option value="Still Exploring">Still Exploring</option> 
                                         </Form.Select>
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <div className="d-grid gap-2 mt-5">
-                                            <Button type="submit" variant="primary">
-                                            Update
-                                            </Button>                                    
-                                        </div>
-                                    </Form.Group>  
+                                    </Form.Group> 
                             </Col>
                         </Row> 
+                        <Row>
+                            <Form.Group className="mb-3">
+                            <div className="float-end mt-5" disabled={isLoading}>
+                                    <Button type="submit" variant="primary">
+                                       {(isLoading) ? 'Loading...' : 'Update'} 
+                                    </Button>                                    
+                                </div>
+                            </Form.Group>  
+                            
+                        </Row>
                     </Form> 
                     </Modal.Body>
                 </Modal> 

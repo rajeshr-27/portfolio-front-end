@@ -36,6 +36,7 @@ function Register() {
     const [cities, setCities] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState('');
     const [selectedState, setSelectedState] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
 
 
@@ -106,7 +107,8 @@ function Register() {
         })
     }
     const handleSubmit = async (e) => {
-        e.preventDefault();       
+        e.preventDefault(); 
+        setIsLoading(true);
         try{
             const postData = new FormData();
             postData.append('data', JSON.stringify(frmData));
@@ -119,6 +121,8 @@ function Register() {
         }catch(error){
             //setErrorMsg(error.response.data.message)
             toast.error(error.response.data.message);
+        }finally{
+            setIsLoading(false);
         }
     }
     return(
@@ -252,8 +256,8 @@ function Register() {
                                                 </Row>
                                                     <Form.Group className="mb-3">
                                                         <div className="d-grid gap-2 mt-3">
-                                                            <Button type="submit" variant="primary">
-                                                            Register
+                                                            <Button type="submit" variant="primary" disabled={isLoading}>
+                                                            {(isLoading) ? 'Loading...': 'Register'}
                                                             </Button>                                    
                                                         </div>
                                                     </Form.Group>  

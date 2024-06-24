@@ -20,7 +20,7 @@ import logo from '../common/img/logo.png'
  
 function Login() {
     const navigate = useNavigate();
-    const {message,error, isAuth} = useSelector((state)=> state.users);
+    const {message,error, isAuth, isLoading} = useSelector((state)=> state.users);
     const dispatch = useDispatch();
     const [frmData, setFrmData] = useState({
         email:'',
@@ -107,8 +107,8 @@ function Login() {
                                             </Form.Group>  
                                             <Form.Group className="mb-3">
                                                 <div className="d-grid gap-2 mt-3">
-                                                    <Button type="submit" variant="primary">
-                                                    Login
+                                                    <Button type="submit" variant="primary" disabled={isLoading}>
+                                                    {(isLoading)?'Loading...':'Login'}
                                                     </Button>                                    
                                                 </div>
                                             </Form.Group> 
