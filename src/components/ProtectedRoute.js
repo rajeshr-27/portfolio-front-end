@@ -12,7 +12,7 @@ function ProtectedRoute(){
         if(isAuth){
             dispatch(authUser(token));
         }        
-    },[isAuth])
+    },[isAuth,dispatch,token])
 
     return(
 

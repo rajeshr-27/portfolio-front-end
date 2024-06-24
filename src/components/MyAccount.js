@@ -14,6 +14,8 @@ import Image from "react-bootstrap/esm/Image";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { toast } from 'react-toastify';
+import { fetchUserDetails } from './api';
+import { fetchBioData } from './api';
 
 function MyAccount() {
     const navigate = useNavigate();
@@ -73,47 +75,33 @@ function MyAccount() {
             setCountries(response.data.countries);
         }
         fetchCountries();
-    },[])
-    
-    const fetchUserDetails = async () => {
-        try{
-            const response = await axios.get(`${API_URL}/user/${user._id}`);
-            if(response.data.user){
-                let userDetails = response.data.user[0]
-                setUserDetails(userDetails);
-                setFrmData(userDetails);
-                setSelectedCountry(userDetails.country);
-                setSelectedState(userDetails.state);
-            } 
-        }catch(error){
-            console.log(error);
-        }
-    }
-
-    const fetchBioData = async () => {
-        try{
-            const response = await axios.get(`${API_URL}/user/bio-data/${user._id}`); 
-            if(response.data.biodata !== null){
-                setUserBioDetails(response.data.biodata[0]);
-                setFrmBioData(response.data.biodata[0]);
-            }
-        }catch(error){
-            console.log(error);
-        }  
-    }
-
+    },[API_URL])
     useEffect(()=>{
         if(user._id){  
              //get User full details
-             fetchUserDetails();
+             const fetchData = async () => {
+                const details = await fetchUserDetails(user._id);
+                setUserDetails(details);
+                setFrmData(details);
+                setSelectedCountry(details.country);
+                setSelectedState(details.state);
+
+             }
+             fetchData();            
+            //setUserDetails(details);
              //get bio data
-             fetchBioData();
+             const fetchBioDataDetails  = async () => {
+                const details = await fetchBioData(user._id)
+                setUserBioDetails(details);
+                setFrmBioData(details);
+             }
+             fetchBioDataDetails();
              setFrmBioData({
                 ...frmData,
                 userId:user._id
              })
         }      
-    },[user])
+    },[user,frmData])
 
     //Fetch states
     useEffect( ()=> {
@@ -124,7 +112,7 @@ function MyAccount() {
             }
             fetchStates();    
         }
-    },[selectedCountry])
+    },[selectedCountry,API_URL])
 
     //Fetch cities
     useEffect(()=> {
@@ -135,7 +123,7 @@ function MyAccount() {
             }
             fetchCities();
         }
-    },[selectedState])    
+    },[selectedState,API_URL])    
 
     //Country on change
     const handleCountryChange = (e) => {
@@ -203,7 +191,16 @@ function MyAccount() {
             }); 
             toast.success(response.data.message);      
             setShowProfile(false);
-            fetchUserDetails();
+
+            const fetchData = async () => {
+                const details = await fetchUserDetails(user._id);
+                setUserDetails(details);
+                setFrmData(details);
+                setSelectedCountry(details.country);
+                setSelectedState(details.state);
+
+             }
+             fetchData();;
         }catch(error){
             if(error.response){
                 toast.error(error.response.data.message)
@@ -232,7 +229,12 @@ function MyAccount() {
                     }); 
                     toast.success(response.data.message);      
                     setShow(false);
-                    fetchBioData();
+                    const fetchBioDataDetails  = async () => {
+                        const details = await fetchBioData(user._id)
+                        setUserBioDetails(details);
+                        setFrmBioData(details);
+                     }
+                     fetchBioDataDetails();
                 }catch(error){
                     if(error.response){
                         toast.error(error.response.data.message)
@@ -251,7 +253,12 @@ function MyAccount() {
                     }); 
                     toast.success(response.data.message);      
                     setShow(false);
-                    fetchBioData();
+                    const fetchBioDataDetails  = async () => {
+                        const details = await fetchBioData(user._id)
+                        setUserBioDetails(details);
+                        setFrmBioData(details);
+                     }
+                     fetchBioDataDetails();
                 }catch(error){
                     toast.error(error.response.data.message)
                 }                

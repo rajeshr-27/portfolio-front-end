@@ -49,7 +49,7 @@ function Register() {
             setCountries(response.data.countries);
         }
         fetchCountries();
-    },[])
+    },[API_URL,isAuth,navigate])
 
     useEffect( ()=> {
         if(selectedCountry){
@@ -60,7 +60,7 @@ function Register() {
             }
             fetchStates();    
         }
-    },[selectedCountry])
+    },[selectedCountry,API_URL])
 
     useEffect(()=> {
         if(selectedState){
@@ -70,7 +70,7 @@ function Register() {
             }
             fetchCities();
         }
-    },[selectedState])
+    },[selectedState,API_URL])
     
 
     const handleCountryChange = (e) => {

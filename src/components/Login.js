@@ -31,7 +31,7 @@ function Login() {
         if(isAuth){
             navigate('/my-account',{replace:true})
         }
-    },[])
+    },[isAuth,navigate])
 
     const handleChange = (e) => {
         const {name,value} = e.target;

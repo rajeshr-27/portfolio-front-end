@@ -80,6 +80,9 @@ body {
   margin-top: 20px;
   font-weight: bold;
 }
+.view-bio {
+  min-height: 740px;
+}
 
 .light-bg {
   text-align: center;
@@ -89,6 +92,7 @@ body {
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
+
 }
 
 .dark-bg {
@@ -97,6 +101,7 @@ body {
   background-position: top center;
   background-size: cover;
   background-image: url("./common/img/bg-desktop.webp");
+ 
 }
 
 

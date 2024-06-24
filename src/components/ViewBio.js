@@ -28,25 +28,27 @@ function ViewBio(){
       };
     
 
-    const fetchBioData = async () => {
-        try{
-            const response = await axios.get(`${API_URL}/user/bio-data/${userId}`);
-            setUserBioDetails(response.data.biodata[0]);
-        }catch(error){
-            console.log(error.response.data.message);
-            navigate('/',{replace:true})
-        }      
-        
-    }
+    
     
     useEffect(()=> {
+
+        const fetchBioData = async () => {
+            try{
+                const response = await axios.get(`${API_URL}/user/bio-data/${userId}`);
+                setUserBioDetails(response.data.biodata[0]);
+            }catch(error){
+                console.log(error.response.data.message);
+                navigate('/',{replace:true})
+            }      
+            
+        }
         if(!userId){
             navigate('/',{replace:true})
         }
 
         fetchBioData();
 
-    },[])
+    },[navigate,userId, API_URL])
 
     return (
         <div className={`view-bio  ${
