@@ -10,6 +10,9 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import Image from 'react-bootstrap/Image';
+import registerimg from '../common/img/register.webp'
+import logo from '../common/img/logo.png'
 
 function Register() {
     const {isAuth} = useSelector((state)=>state.users);
@@ -125,82 +128,120 @@ function Register() {
                     <Col xs={12}></Col>
                     <Col  xs={12}>
                         <Card className="mt-5 mb-5">
-                            <Card.Body>
-                                <Card.Title className="mb-5">Registration</Card.Title>                                
+                            <Card.Body>                   
                                     <Form onSubmit={handleSubmit}>
                                         <Row>
-                                            <Col xs={12} sm={6}> 
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>Name *</Form.Label>
-                                                        <Form.Control name="name"  value={frmData.name} onChange={handleChange} type="text" placeholder="Enter First Name" required />
-                                                    </Form.Group>   
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>Email address *</Form.Label>
-                                                        <Form.Control type="email" name="email" value={frmData.email} onChange={handleChange}  placeholder="Enter Email Address" required />
-                                                    </Form.Group>
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>Password *</Form.Label>
-                                                        <Form.Control name="password" value={frmData.password} onChange={handleChange}  type="password" placeholder="Enter Password" required />
-                                                    </Form.Group> 
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>Mobile Number *</Form.Label>
-                                                        <Form.Control type="text" name="mobile_number" value={frmData.mobile_number} onKeyPress={handleKeyPress} onChange={handleChange}  placeholder="Enter Mobile Number" required  />
-                                                    </Form.Group>   
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>Gender *</Form.Label>
-                                                        <Form.Select name="gender"  value={frmData.gender} onChange={handleChange} required>                                                
+                                            <Col xs={12} lg={6} className="d-none d-lg-block"> 
+                                                <div class="left-section">
+                                                    <Image  src={registerimg} alt="registration" thumbnail />   
+                                                </div>                                                   
+                                            </Col>
+                                            <Col xs={12} lg={6} className=" ">
+                                                <Row>
+                                                    <Col className="text-center mb-3">
+                                                    <Image    src={logo} alt="logo" style={{"height":"120px", "width":"120px"}} thumbnail />  
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><Card.Title className="mb-5"><h4>Registration</h4></Card.Title></Col> 
+                                                </Row>
+                                                <Row>
+                                                    <Col xs={12} sm={6}>
+                                                        <Form.Group className="mb-4">
+                                                            
+                                                            <Form.Control  size="lg"  name="name"  value={frmData.name} onChange={handleChange} type="text" placeholder="Enter Name" required />
+                                                        </Form.Group>   
+                                                    </Col>
+                                                    <Col xs={12} sm={6}>
+                                                        <Form.Group className="mb-4">
+                                                            
+                                                            <Form.Control size="lg" type="email" name="email" value={frmData.email} onChange={handleChange}  placeholder="Enter Email Address" required />
+                                                        </Form.Group>
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col xs={12} sm={6}>
+                                                        <Form.Group className="mb-4">
+                                                            {/* <Form.Label>Password *</Form.Label> */}
+                                                            <Form.Control size="lg" name="password" value={frmData.password} onChange={handleChange}  type="password" placeholder="Enter Password" required />
+                                                        </Form.Group> 
+                                                    </Col>
+                                                    <Col xs={12} sm={6}>
+                                                        <Form.Group className="mb-4">
+                                                            {/* <Form.Label>Mobile Number *</Form.Label> */}
+                                                            <Form.Control size="lg" type="text" name="mobile_number" value={frmData.mobile_number} onKeyPress={handleKeyPress} onChange={handleChange}  placeholder="Enter Mobile Number" required  />
+                                                        </Form.Group>   
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Form.Group className="mb-4">
+                                                        {/* <Form.Label>Gender *</Form.Label> */}
+                                                        <Form.Select size="lg"  name="gender"  value={frmData.gender} onChange={handleChange} required>                                                
                                                             <option value="">---Select Gender---</option>
                                                             <option value="Male">Male</option>
                                                             <option value="Female">Female</option>
                                                             <option value="Other">Other</option>
                                                         </Form.Select>
                                                     </Form.Group>
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>Date Of Birth *</Form.Label>
-                                                        <Form.Control name="dob" type="date"  value={frmData.dob} onChange={handleChange}  placeholder="Enter Date Of Birth" required />
+                                                </Row>
+                                                <Row>
+                                                    <Form.Group className="mb-4">
+                                                        {/* <Form.Label>Date Of Birth *</Form.Label> */}
+                                                        <Form.Control size="lg" name="dob" type="date"  value={frmData.dob} onChange={handleChange}  placeholder="Enter Date Of Birth" required />
                                                     </Form.Group>  
-                                            </Col>
-                                            <Col xs={12} sm={6}>
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>Country *</Form.Label>
-                                                        <Form.Select name="country" value={selectedCountry} onChange={handleCountryChange} required>                                                
-                                                            <option value="">---Select country---</option>
-                                                            {countries && 
-                                                                countries.map((country,index) => (
-                                                                    <option key={index} value={country.id}>{country.name}</option>
-                                                                ))
-                                                            }
-                                                        </Form.Select>
-                                                    </Form.Group>
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>State *</Form.Label>
-                                                        <Form.Select name="state" value={frmData.state} onChange={handleStateChange} required>                                                 
-                                                            <option value="">---Select state---</option>
-                                                            {states && 
-                                                                states.map((state, index) => (
-                                                                    <option key={index} value={state.id}>{state.name}</option>
-                                                                ))
-                                                            }
-                                                        </Form.Select>
-                                                    </Form.Group>
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>City * </Form.Label>
-                                                        <Form.Select name="city"  value={frmData.city} onChange={handleChange} required >                                                
-                                                            <option value="">---Select city---</option>
-                                                            { cities &&
-                                                                cities.map((city, index) => (
-                                                                    <option key={index} value={city.id}>{city.name}</option> 
-                                                                ))} 
-                                                        </Form.Select>
-                                                    </Form.Group>
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>Pincode *</Form.Label>
-                                                        <Form.Control onKeyPress={handleKeyPress}  value={frmData.pincode} onChange={handleChange}  name="pincode" type="text" placeholder="Enter Pincode" required />
-                                                    </Form.Group>  
-
-                                                    <Form.Group className="mb-3">
-                                                        <Form.Label>Profile Type *</Form.Label>
-                                                        <Form.Select name="profile_type"  value={frmData.profile_type} onChange={handleChange} required>                                                
+                                                </Row>
+                                                <Row>
+                                                    <Col xs={12} sm={6}>
+                                                        <Form.Group className="mb-4">
+                                                            {/* <Form.Label>Country *</Form.Label> */}
+                                                            <Form.Select size="lg" name="country" value={selectedCountry} onChange={handleCountryChange} required>                                                
+                                                                <option value="">---Select country---</option>
+                                                                {countries && 
+                                                                    countries.map((country,index) => (
+                                                                        <option key={index} value={country.id}>{country.name}</option>
+                                                                    ))
+                                                                }
+                                                            </Form.Select>
+                                                        </Form.Group>
+                                                    </Col>
+                                                    <Col xs={12} sm={6}>
+                                                        <Form.Group className="mb-4">
+                                                            {/* <Form.Label>State *</Form.Label> */}
+                                                            <Form.Select size="lg" name="state" value={frmData.state} onChange={handleStateChange} required>                                                 
+                                                                <option value="">---Select state---</option>
+                                                                {states && 
+                                                                    states.map((state, index) => (
+                                                                        <option key={index} value={state.id}>{state.name}</option>
+                                                                    ))
+                                                                }
+                                                            </Form.Select>
+                                                        </Form.Group>
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col xs={12} sm={6}>
+                                                        <Form.Group className="mb-4">
+                                                            {/* <Form.Label>City * </Form.Label> */}
+                                                            <Form.Select size="lg" name="city"  value={frmData.city} onChange={handleChange} required >                                                
+                                                                <option value="">---Select city---</option>
+                                                                { cities &&
+                                                                    cities.map((city, index) => (
+                                                                        <option key={index} value={city.id}>{city.name}</option> 
+                                                                    ))} 
+                                                            </Form.Select>
+                                                        </Form.Group>
+                                                    </Col>
+                                                    <Col xs={12} sm={6}>                                                 
+                                                        <Form.Group className="mb-4">
+                                                            {/* <Form.Label>Pincode *</Form.Label> */}
+                                                            <Form.Control size="lg" onKeyPress={handleKeyPress}  value={frmData.pincode} onChange={handleChange}  name="pincode" type="text" placeholder="Enter Pincode" required />
+                                                        </Form.Group>  
+                                                    </Col>
+                                                </Row>
+                                                <Row> 
+                                                    <Form.Group className="mb-4">
+                                                        {/* <Form.Label>Profile Type *</Form.Label> */}
+                                                        <Form.Select size="lg" name="profile_type"  value={frmData.profile_type} onChange={handleChange} required>                                                
                                                             <option value="">---Select Profile Type---</option>
                                                             <option value="Student">Student</option> 
                                                             <option value="Salaried">Salaried</option> 
@@ -208,8 +249,9 @@ function Register() {
                                                             <option value="Still Exploring">Still Exploring</option> 
                                                         </Form.Select>
                                                     </Form.Group>
+                                                </Row>
                                                     <Form.Group className="mb-3">
-                                                        <div className="d-grid gap-2 mt-5">
+                                                        <div className="d-grid gap-2 mt-3">
                                                             <Button type="submit" variant="primary">
                                                             Register
                                                             </Button>                                    
