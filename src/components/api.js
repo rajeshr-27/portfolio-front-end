@@ -5,11 +5,11 @@ export  const fetchUserDetails = async (userId) => {
     try{
         const response = await axios.get(`${API_URL}/user/${userId}`);
         if(response.data.user){
-            return response.data.user[0]
+            return response.data
             
         } 
     }catch(error){
-        console.log(error);
+        return error.response.data
     }
 }
 
@@ -17,9 +17,9 @@ export const fetchBioData = async (userId) => {
     try{
         const response = await axios.get(`${API_URL}/user/bio-data/${userId}`); 
         if(response.data.biodata !== null){
-            return response.data.biodata[0];
+            return response.data;
         }
     }catch(error){
-        console.log(error);
+        return error.response.data
     }  
 }

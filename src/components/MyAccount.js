@@ -81,10 +81,13 @@ function MyAccount() {
              //get User full details
              const fetchData = async () => {
                 const details = await fetchUserDetails(user._id);
-                setUserDetails(details);
-                setFrmData(details);
-                setSelectedCountry(details.country);
-                setSelectedState(details.state);
+                if(details.status === 1){
+                    setUserDetails(details.user[0]);
+                    setFrmData(details.user[0]);
+                    setSelectedCountry(details.user[0]);
+                    setSelectedState(details.user[0]);
+                }
+                
 
              }
              fetchData();            
@@ -92,16 +95,16 @@ function MyAccount() {
              //get bio data
              const fetchBioDataDetails  = async () => {
                 const details = await fetchBioData(user._id)
-                setUserBioDetails(details);
-                setFrmBioData(details);
+                if(details.status === 1){
+                    setUserBioDetails(details.biodata[0]);
+                    setFrmBioData(details.biodata[0]);
+                }
+               
              }
              fetchBioDataDetails();
-             setFrmBioData({
-                ...frmData,
-                userId:user._id
-             })
+             
         }      
-    },[user,frmData])
+    },[user])
 
     //Fetch states
     useEffect( ()=> {
@@ -171,7 +174,8 @@ function MyAccount() {
         })
     }
 
-    const handleSummaryChange = (value) => {        
+    const handleSummaryChange = (value) => {      
+        console.log(frmBioData);  
         setFrmBioData({
             ...frmBioData,
            summary:value
@@ -194,10 +198,12 @@ function MyAccount() {
 
             const fetchData = async () => {
                 const details = await fetchUserDetails(user._id);
-                setUserDetails(details);
-                setFrmData(details);
-                setSelectedCountry(details.country);
-                setSelectedState(details.state);
+                if(details.status === 1){
+                    setUserDetails(details.user[0]);
+                    setFrmData(details.user[0]);
+                    setSelectedCountry(details.user[0]);
+                    setSelectedState(details.user[0]);
+                }
 
              }
              fetchData();;
@@ -214,55 +220,59 @@ function MyAccount() {
 
      //Submit Bio form handling
      const handleBioSubmit = async (e) => {
-        e.preventDefault();       
-            const postData = new FormData();
-            postData.append('photo', frmBioData.photo);
-            postData.append('data', JSON.stringify(frmBioData));
-            if(userBioDetails._id){
-                //update
-                console.log('update');
-                try{
-                    const response = await axios.put(`${API_URL}/user/update-bio-data/${userBioDetails._id}`, postData,{
-                        headers:{
-                            Authorization : `Bearer ${token}`
-                        }
-                    }); 
-                    toast.success(response.data.message);      
-                    setShow(false);
-                    const fetchBioDataDetails  = async () => {
-                        const details = await fetchBioData(user._id)
-                        setUserBioDetails(details);
-                        setFrmBioData(details);
-                     }
-                     fetchBioDataDetails();
-                }catch(error){
-                    if(error.response){
-                        toast.error(error.response.data.message)
-                        if(error.response.status === 401){
-                            navigate('/login',{replace:true})
-                        }
+        
+        e.preventDefault();     
+        frmBioData.userId = user._id
+        const postData = new FormData();
+        postData.append('photo', frmBioData.photo);
+        postData.append('data', JSON.stringify(frmBioData));
+        if(userBioDetails._id){
+            //update
+            console.log('update');
+            try{
+                const response = await axios.put(`${API_URL}/user/update-bio-data/${userBioDetails._id}`, postData,{
+                    headers:{
+                        Authorization : `Bearer ${token}`
+                    }
+                }); 
+                toast.success(response.data.message);      
+                setShow(false);
+                const fetchBioDataDetails  = async () => {
+                    const details = await fetchBioData(user._id)
+                    if(details.status === 1){
+                        setUserBioDetails(details.biodata[0]);
+                        setFrmBioData(details.biodata[0]);
+                    }                    
+                }
+                fetchBioDataDetails();
+            }catch(error){
+                if(error.response){
+                    toast.error(error.response.data.message)
+                    if(error.response.status === 401){
+                        navigate('/login',{replace:true})
                     }
                 }
-                
-            }else {
-                try{
-                    const response = await axios.post(`${API_URL}/user/add-bio-data`, postData,{
-                        headers:{
-                            Authorization : `Bearer ${token}`
-                        }
-                    }); 
-                    toast.success(response.data.message);      
-                    setShow(false);
-                    const fetchBioDataDetails  = async () => {
-                        const details = await fetchBioData(user._id)
-                        setUserBioDetails(details);
-                        setFrmBioData(details);
-                     }
-                     fetchBioDataDetails();
-                }catch(error){
-                    toast.error(error.response.data.message)
-                }                
-            }            
+            }
+            
+        }else {
+            try{
+                const response = await axios.post(`${API_URL}/user/add-bio-data`, postData,{
+                    headers:{
+                        Authorization : `Bearer ${token}`
+                    }
+                }); 
+                toast.success(response.data.message);      
+                setShow(false);
+                const fetchBioDataDetails  = async () => {
+                    const details = await fetchBioData(user._id)
+                    setUserBioDetails(details.biodata[0]);
+                    setFrmBioData(details.biodata[0]);
+                    }
+                    fetchBioDataDetails();
+            }catch(error){
+                toast.error(error.response.data.message)
+            }                
+        }            
     }
     return (
     <div className='content my-account'>

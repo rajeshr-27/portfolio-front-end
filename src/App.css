@@ -71,6 +71,7 @@ body {
     width: 9rem;
     height: 9rem;
     border: 2px solid;
+    border-color:white
 }
 .view-bio .section-1{
   display: ruby-text;
@@ -156,7 +157,7 @@ body {
 }
 
 .border-2 {
-  border-width: 2px !important;
+  border: 2px solid !important;
 }
 
 .backdrop-filter-none {
@@ -286,4 +287,12 @@ body {
 
 .text-black\/70 {
   color: rgb(0 0 0 / 0.7) !important;
+}
+
+.border-white\/40 {
+  border-color: rgb(255 255 255 / 0.4) !important;
+} 
+.group:hover .group-hover\:text-purple-700 {
+  --tw-text-opacity: 1;
+  color: rgb(126 34 206 / var(--tw-text-opacity));
 }

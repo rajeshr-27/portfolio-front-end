@@ -60,7 +60,7 @@ function ViewBio(){
                     <Col  className="mt-5">
                         <div className="section-1"> 
                             <div>
-                                <Image className={`profile-image ${isLightMode ? "border-black/70" : "border-white/70"}`} src={`${API_URL}/${userBioDetails.photo}`} roundedCircle />
+                                <Image className={`profile-image ${isLightMode ? "border-black/70" : "border-white/70"}`} src={ userBioDetails.photo && `${API_URL}/${userBioDetails.photo}`} roundedCircle />
                             </div>
                             <div className={`title  ${isLightMode ? "text-black" : "text-white"}` }>
                                 <div>{(Array.isArray(userBioDetails.user_data) && userBioDetails.user_data.length > 0) ?  userBioDetails.user_data[0].name : ''}</div>                               
