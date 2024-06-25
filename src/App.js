@@ -14,12 +14,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
     return (
         <div className="">
             <Provider store={store}>
                 <Router>
+                    <ScrollToTop />
                     <Routes>
                         <Route path="/" element={<Header />}>
                             <Route path="/" element={<Register />}></Route>
