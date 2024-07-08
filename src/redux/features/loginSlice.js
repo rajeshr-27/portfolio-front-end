@@ -6,8 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 export const loginUser = createAsyncThunk('user/login', async (postData,{rejectWithValue}) => {
     try{
         const response = await axios.post(`${API_URL}/user/login`, postData);
-        return response.data
-
+        return response.data;
     }catch(error){
         console.log(error);
         if(error.response){

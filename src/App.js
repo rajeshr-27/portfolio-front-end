@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ScrollToTop from './components/ScrollToTop';
+import  Home  from './components/Home';
 
 function App() {
     return (
@@ -24,12 +25,11 @@ function App() {
                     <ScrollToTop />
                     <Routes>
                         <Route path="/" element={<Header />}>
-                            <Route path="/" element={<Register />}></Route>
-                            <Route path="/login" element={<Login />}></Route>
-                            
-                            
+                            <Route path="/register" element={<Register />}></Route>
+                            <Route path="/login" element={<Login />}></Route>                            
+                            <Route path="/" element={<Home />}></Route>
                             <Route path="/" element={<ProtectedRoute />}>
-                                 <Route path="/my-account" element={<MyAccount />}></Route>
+                                <Route path="/my-account" element={<MyAccount />}></Route>
                             </Route>
                         </Route>
                         <Route path="/view-bio/:userId" element={<ViewBio />}></Route>
