@@ -139,6 +139,10 @@ function MyAccount() {
         })
     }
 
+    const handleViewPortfolio = (e) => {
+        toast.error('Please update Bio data')
+    }
+
     //State on change
     const handleStateChange = (e) => {
         setSelectedState(e.target.value);
@@ -289,7 +293,14 @@ function MyAccount() {
                 <Card  className='mt-5'>
                 <Row className='mb-3 mt-3'>
                     <Col className=''>
-                        <Link to={(Array.isArray(userDetails.country_data) && userDetails.country_data.length >0) ?`/view-bio/${userDetails._id}`:''} target='_blank' className='btn btn-info btn-sm float-end'>View Portfolio</Link>
+                        {
+                            (userBioDetails.photo)
+                            ?
+                            <Link to={(userBioDetails.photo) ?`/view-bio/${userDetails._id}`:''} target='_blank' className='btn btn-info btn-sm float-end'>View Portfolio</Link>
+                            :
+                            <Link onClick={handleViewPortfolio} className='btn btn-info btn-sm float-end'>View Portfolio</Link>
+                        }
+                        
                         <Link className='btn btn-primary btn-sm float-end' onClick={handleShow} style={{"marginRight":"15px"}}>Edit Bio</Link> 
                         <Link className='btn btn-success btn-sm float-end' onClick={handleProfileShow}  style={{"marginRight":"15px"}}>Edit Profile</Link>   
                         

@@ -37,8 +37,8 @@ function ViewBio(){
                 const response = await axios.get(`${API_URL}/user/bio-data/${userId}`);
                 setUserBioDetails(response.data.biodata[0]);
             }catch(error){
-                console.log(error.response.data.message);
-                navigate('/',{replace:true})
+                 
+                navigate('/my-account',{replace:true})
             }      
             
         }
