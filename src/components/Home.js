@@ -1,7 +1,8 @@
 import React  from "react";
 import '../common/css/style.css'
 import { Link } from "react-router-dom";
-import profile from "../common/img/profile.png"
+import profile from "../common/img/profile-2.png"
+//import profile from '../common/img/register.webp'
 
 function Home() {
     return(
