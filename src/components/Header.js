@@ -16,7 +16,7 @@ function Header() {
     <>
         <Navbar bg="light" data-bs-theme="light">
             <Container>
-                <Link className="navbar-brand" to="/">Portfolio</Link> 
+                <Link className="navbar-brand" to="/">BIGCONNECTS</Link> 
                     {isAuth &&
                         <>
                          <Navbar.Toggle aria-controls="basic-navbar-nav" />
