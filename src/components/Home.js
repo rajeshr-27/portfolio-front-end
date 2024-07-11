@@ -62,7 +62,7 @@ function Home() {
                         <div class="col-xxl-8">
                             <div class="text-center my-5">
                                 <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">About Us</span></h2> 
-                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit dolorum itaque qui unde quisquam consequatur autem. Eveniet quasi nobis aliquid cumque officiis sed rem iure ipsa! Praesentium ratione atque doloremEveniet quasi nobis aliquid cumque officiis sed rem iure ipsa! Praesentium ratione atque dolorem</p>
+                                <p class="text-muted">Bridging People to Their Needs Through Networking At Bigconnects, we believe that connections are more than just links between individuals; they are pathways to fulfilling needs, aspirations, and opportunities. Our mission is simple yet powerful: to create a vibrant network where people can seamlessly connect, collaborate, and thrive.</p>
                                 <div class="d-flex justify-content-center fs-2 gap-4">
                                     <a class="text-gradient" href="#!"><i class="bi bi-twitter"></i></a>
                                     <a class="text-gradient" href="#!"><i class="bi bi-linkedin"></i></a>
