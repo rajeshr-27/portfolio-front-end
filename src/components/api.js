@@ -13,9 +13,9 @@ export  const fetchUserDetails = async (userId) => {
     }
 }
 
-export const fetchBioData = async (userId) => {
+export const fetchBioData = async (username) => {
     try{
-        const response = await axios.get(`${API_URL}/user/bio-data/${userId}`); 
+        const response = await axios.get(`${API_URL}/user/bio-data/${username}`); 
         if(response.data.biodata !== null){
             return response.data;
         }

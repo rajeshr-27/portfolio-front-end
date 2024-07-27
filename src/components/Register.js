@@ -20,6 +20,7 @@ function Register() {
     const API_URL = process.env.REACT_APP_API_URL;
     const [frmData,setFrmData] = useState({
         name:'',
+        username:'',
         email:'',
         password:'',
         mobile_number:'',
@@ -157,37 +158,44 @@ function Register() {
                                                         </Form.Group>   
                                                     </Col>
                                                     <Col xs={12} sm={6}>
-                                                        <Form.Group className="mb-4">
-                                                            
-                                                            <Form.Control size="lg" type="email" name="email" value={frmData.email} onChange={handleChange}  placeholder="Enter Email Address" required />
+                                                        <Form.Group className="mb-4">                                                            
+                                                            <Form.Control size="lg" type="text" name="username" value={frmData.username} onChange={handleChange}  placeholder="Enter Username" required />
                                                         </Form.Group>
                                                     </Col>
                                                 </Row>
                                                 <Row>
                                                     <Col xs={12} sm={6}>
+                                                        <Form.Group className="mb-4">                                                            
+                                                            <Form.Control size="lg" type="email" name="email" value={frmData.email} onChange={handleChange}  placeholder="Enter Email Address" required />
+                                                        </Form.Group>
+                                                    </Col>
+                                                    <Col xs={12} sm={6}>
                                                         <Form.Group className="mb-4">
                                                             {/* <Form.Label>Password *</Form.Label> */}
                                                             <Form.Control size="lg" name="password" value={frmData.password} onChange={handleChange}  type="password" placeholder="Enter Password" required />
                                                         </Form.Group> 
-                                                    </Col>
+                                                    </Col> 
+                                                </Row>
+                                                <Row>
                                                     <Col xs={12} sm={6}>
                                                         <Form.Group className="mb-4">
                                                             {/* <Form.Label>Mobile Number *</Form.Label> */}
                                                             <Form.Control size="lg" type="text" name="mobile_number" value={frmData.mobile_number} onKeyPress={handleKeyPress} onChange={handleChange}  placeholder="Enter Mobile Number" required  />
                                                         </Form.Group>   
                                                     </Col>
+                                                    <Col xs={12} sm={6}>
+                                                        <Form.Group className="mb-4">
+                                                            {/* <Form.Label>Gender *</Form.Label> */}
+                                                            <Form.Select size="lg"  name="gender"  value={frmData.gender} onChange={handleChange} required>                                                
+                                                                <option value="">---Select Gender---</option>
+                                                                <option value="Male">Male</option>
+                                                                <option value="Female">Female</option>
+                                                                <option value="Other">Other</option>
+                                                            </Form.Select>
+                                                        </Form.Group>
+                                                    </Col>
                                                 </Row>
-                                                <Row>
-                                                    <Form.Group className="mb-4">
-                                                        {/* <Form.Label>Gender *</Form.Label> */}
-                                                        <Form.Select size="lg"  name="gender"  value={frmData.gender} onChange={handleChange} required>                                                
-                                                            <option value="">---Select Gender---</option>
-                                                            <option value="Male">Male</option>
-                                                            <option value="Female">Female</option>
-                                                            <option value="Other">Other</option>
-                                                        </Form.Select>
-                                                    </Form.Group>
-                                                </Row>
+                                               
                                                 <Row>
                                                     <Form.Group className="mb-4">
                                                         {/* <Form.Label>Date Of Birth *</Form.Label> */}

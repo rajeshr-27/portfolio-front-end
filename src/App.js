@@ -32,7 +32,7 @@ function App() {
                                 <Route path="/my-account" element={<MyAccount />}></Route>
                             </Route>
                         </Route>
-                        <Route path="/view-bio/:userId" element={<ViewBio />}></Route>
+                        <Route path="/view-bio/:username" element={<ViewBio />}></Route>
                     </Routes>                
                 </Router>
             </Provider>

@@ -18,7 +18,7 @@ import {
 
 function ViewBio(){
     const API_URL = process.env.REACT_APP_API_URL;
-    const {userId} = useParams();
+    const {username} = useParams();
     const navigate = useNavigate()
     const [userBioDetails, setUserBioDetails] = useState([]);
     const [isLightMode, setIsLightMode] = useState(true);
@@ -34,7 +34,7 @@ function ViewBio(){
 
         const fetchBioData = async () => {
             try{
-                const response = await axios.get(`${API_URL}/user/bio-data/${userId}`);
+                const response = await axios.get(`${API_URL}/user/bio-data/${username}`);
                 setUserBioDetails(response.data.biodata[0]);
             }catch(error){
                  
@@ -42,13 +42,13 @@ function ViewBio(){
             }      
             
         }
-        if(!userId){
+        if(!username){
             navigate('/',{replace:true})
         }
 
         fetchBioData();
 
-    },[navigate,userId, API_URL])
+    },[navigate,username, API_URL])
 
     return (
         <div className={`view-bio  ${

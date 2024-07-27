@@ -26,6 +26,7 @@ function MyAccount() {
     //Initial form data
     const [frmData,setFrmData] = useState({
         name:'',
+        username:'',
         email:'',
         mobile_number:'',
         gender:'',
@@ -95,7 +96,7 @@ function MyAccount() {
             //setUserDetails(details);
              //get bio data
              const fetchBioDataDetails  = async () => {
-                const details = await fetchBioData(user._id)
+                const details = await fetchBioData(user.username)
                 if(details.status === 1){
                     setUserBioDetails(details.biodata[0]);
                     setFrmBioData(details.biodata[0]);
@@ -246,7 +247,7 @@ function MyAccount() {
                 toast.success(response.data.message);      
                 setShow(false);
                 const fetchBioDataDetails  = async () => {
-                    const details = await fetchBioData(user._id)
+                    const details = await fetchBioData(user.username)
                     if(details.status === 1){
                         setUserBioDetails(details.biodata[0]);
                         setFrmBioData(details.biodata[0]);
@@ -274,7 +275,7 @@ function MyAccount() {
                 toast.success(response.data.message);      
                 setShow(false);
                 const fetchBioDataDetails  = async () => {
-                    const details = await fetchBioData(user._id)
+                    const details = await fetchBioData(user.username)
                     setUserBioDetails(details.biodata[0]);
                     setFrmBioData(details.biodata[0]);
                     }
@@ -296,7 +297,7 @@ function MyAccount() {
                         {
                             (userBioDetails.photo)
                             ?
-                            <Link to={(userBioDetails.photo) ?`/view-bio/${userDetails._id}`:''} target='_blank' className='btn btn-info btn-sm float-end'>View Portfolio</Link>
+                            <Link to={(userBioDetails.photo) ?`/view-bio/${userDetails.username}`:''} target='_blank' className='btn btn-info btn-sm float-end'>View Portfolio</Link>
                             :
                             <Link onClick={handleViewPortfolio} className='btn btn-info btn-sm float-end'>View Portfolio</Link>
                         }
@@ -316,9 +317,14 @@ function MyAccount() {
                                         <th>Name</th>
                                         <td>: {userDetails.name} </td>
                                     </tr>
+                                     
                                     <tr>
                                         <th>Email</th>
                                         <td>: {userDetails.email}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Username</th>
+                                        <td>: {userDetails.username}</td>
                                     </tr>
                                     <tr>
                                         <th>Mobile Number</th>
@@ -488,6 +494,10 @@ function MyAccount() {
                                     <Form.Group className="mb-3">
                                         <Form.Label>Name *</Form.Label>
                                         <Form.Control name="name"  value={frmData.name} onChange={handleChange} type="text" placeholder="Enter First Name" required />
+                                    </Form.Group> 
+                                    <Form.Group className="mb-3">
+                                        <Form.Label>Username *</Form.Label>
+                                        <Form.Control name="username"  value={frmData.username} onChange={handleChange} type="text" placeholder="Enter Username" required />
                                     </Form.Group>   
                                     <Form.Group className="mb-3">
                                         <Form.Label>Email address *</Form.Label>
