@@ -15,7 +15,7 @@ import { InputGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
-import logo from '../common/img/logo.png'
+import logo from '../common/img/logo-.png';
 
  
 function Login() {
@@ -79,7 +79,7 @@ function Login() {
                                     <Col xs={12} lg={6} className="">
                                         <Row>
                                             <Col className="text-center mb-3">
-                                            <Image    src={logo} alt="logo" style={{"height":"120px", "width":"120px"}} thumbnail />  
+                                            <Image    src={logo} alt="logo" style={{"height":"64px"}} thumbnail />  
                                             </Col>
                                         </Row>
                                         <Row>

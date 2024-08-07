@@ -4,6 +4,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Outlet, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/features/loginSlice';
+import logo from '../common/img/logo-.png';
 
 function Header() {
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function Header() {
     <>
         <Navbar bg="light" data-bs-theme="light">
             <Container>
-                <Link className="navbar-brand" to="/">BIGCONNECTS</Link> 
+                <Link className="navbar-brand" to="/"><img class="profile-img" src={logo} style={{"height":"32px"}} alt="..." /></Link> 
                     {isAuth &&
                         <>
                          <Navbar.Toggle aria-controls="basic-navbar-nav" />
